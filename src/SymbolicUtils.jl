@@ -23,6 +23,9 @@ using WeakValueDicts: WeakValueDict
 
 Base.@deprecate istree iscall
 export istree, operation, arguments, sorted_arguments, iscall
+
+using Base: RefValue
+using Expronicon.ADT: @adt
 # Sym, Term,
 # Add, Mul and Pow
 include("types.jl")
