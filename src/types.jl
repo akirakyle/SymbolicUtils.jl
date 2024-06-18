@@ -56,13 +56,14 @@ function SymbolicIndexingInterface.symbolic_type(::Type{<:BasicSymbolic})
 end
 
 function exprtype(x::BasicSymbolic)
-    @compactified x::BasicSymbolic begin
+    @match x::BasicSymbolic begin
         Term => TERM
         Add  => ADD
         Mul  => MUL
         Div  => DIV
         Pow  => POW
         Sym  => SYM
+        Const => CONST
         _    => error_on_type()
     end
 end
@@ -110,7 +111,7 @@ symtype(x) = typeof(x)
 
 # We're returning a function pointer
 @inline function operation(x::BasicSymbolic)
-    @compactified x::BasicSymbolic begin
+    @match x::BasicSymbolic begin
         Term => x.f
         Add  => (+)
         Mul  => (*)
@@ -125,7 +126,7 @@ end
 
 function TermInterface.sorted_arguments(x::BasicSymbolic)
     args = arguments(x)
-    @compactified x::BasicSymbolic begin
+    @match x::BasicSymbolic begin
         Add => @goto ADD
         Mul => @goto MUL
         _   => return args
@@ -150,7 +151,7 @@ end
 TermInterface.children(x::BasicSymbolic) = arguments(x)
 TermInterface.sorted_children(x::BasicSymbolic) = sorted_arguments(x)
 function TermInterface.arguments(x::BasicSymbolic)
-    @compactified x::BasicSymbolic begin
+    @match x::BasicSymbolic begin
         Term => return x.arguments
         Add  => @goto ADDMUL
         Mul  => @goto ADDMUL
