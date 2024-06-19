@@ -384,9 +384,9 @@ function BasicSymbolic(s::BasicSymbolic)::BasicSymbolic
     end
 end
 
-function Sym{T}(name::Symbol; kw...) where {T}
-    s = Sym{T}(; name, kw...)
-    BasicSymbolic(s)
+function _Sym(::Type{T}, name::Symbol; kwargs...) where {T}
+    impl = Sym(name)
+    BasicSymbolic{T}(; impl, kwargs...)
 end
 
 function Term{T}(f, args; kw...) where T
