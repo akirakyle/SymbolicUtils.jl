@@ -724,7 +724,7 @@ function basicsymbolic(f, args, stype, metadata)
         end
     else
         @label FALLBACK
-        Term{T}(f, args, metadata=metadata)
+        _Term(T, f, args; metadata)
     end
 end
 
