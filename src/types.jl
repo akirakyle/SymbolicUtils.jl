@@ -415,6 +415,13 @@ function _Mul(::Type{T}, coeff, dict; kwargs...) where {T}
     BasicSymbolic{T}(; impl, kwargs...)
 end
 
+function _iszero(x::BasicSymbolic)
+    @match x.impl begin
+        Const(_...) => iszero(x.impl.val)
+        _ => false
+    end
+end
+
 const Rat = Union{Rational, Integer}
 
 function ratcoeff(x)
