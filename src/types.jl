@@ -817,7 +817,7 @@ function isnegative(t)
 end
 
 # Term{}
-setargs(t, args) = Term{symtype(t)}(operation(t), args)
+setargs(t, args) = _Term(symtype(t), operation(t), args)
 cdrargs(args) = setargs(t, cdr(args))
 
 print_arg(io, x::Union{Complex, Rational}; paren=true) = print(io, "(", x, ")")
