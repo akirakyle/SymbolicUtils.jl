@@ -647,20 +647,20 @@ function term(f, args...; T = nothing)
 end
 
 """
-    unflatten(t::Symbolic{T})
+$(TYPEDSIGNATURES)
+
 Binarizes `Term`s with n-ary operations
 """
-function unflatten(t::Symbolic{T}) where{T}
+function unflatten(t::Symbolic{T}) where {T}
     if iscall(t)
         f = operation(t)
         if f == (+) || f == (*)   # TODO check out for other n-ary --> binary ops
             a = arguments(t)
-            return foldl((x,y) -> Term{T}(f, Any[x, y]), a)
+            return foldl((x, y) -> _Term(T, f, [x, y]), a)
         end
     end
     return t
 end
-
 unflatten(t) = t
 
 function TermInterface.maketerm(T::Type{<:BasicSymbolic}, head, args, metadata)
