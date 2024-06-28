@@ -1105,10 +1105,10 @@ macro syms(xs...)
         nt = _name_type(x)
         n, t = nt.name, nt.type
         T = esc(t)
-        :($(esc(n)) = Sym{$T}($(Expr(:quote, n))))
+        :($(esc(n)) = _Sym($T, $(Expr(:quote, n))))
     end
     Expr(:block, defs...,
-         :(tuple($(map(x->esc(_name_type(x).name), xs)...))))
+        :(tuple($(map(x -> esc(_name_type(x).name), xs)...))))
 end
 
 function syms_syntax_error()
