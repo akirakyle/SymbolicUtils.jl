@@ -187,7 +187,14 @@ function TermInterface.arguments(x::BasicSymbolic)
     return args
 end
 
-isexpr(s::BasicSymbolic) = !issym(s)
+function isexpr(x::BasicSymbolic)
+    @match x.impl begin
+        Sym(_...) => false
+        Const(_...) => false
+        _ => false
+    end
+end
+
 iscall(s::BasicSymbolic) = isexpr(s)
 
 """
