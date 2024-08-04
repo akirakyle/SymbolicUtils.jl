@@ -61,7 +61,6 @@ function exprtype(x::BasicSymbolic)
         Div(_...) => DIV
         Pow(_...) => POW
         Const(_...) => CONST
-        _ => error_on_type()
     end
 end
 
@@ -117,7 +116,6 @@ symtype(x) = typeof(x)
         Pow(_...) => (^)
         Sym(_...) => error_sym()
         Const(_...) => error_const()
-        _ => error_on_type()
     end
 end
 
@@ -160,7 +158,6 @@ function TermInterface.arguments(x::BasicSymbolic)
         Pow(_...) => @goto DIVPOW
         Sym(_...) => error_sym()
         Const(_...) => error_const()
-        _ => error_on_type()
     end
 
     @label ADDMUL
