@@ -11,17 +11,17 @@ include("utils.jl")
         @syms a b::Float64 f(::Real) g(p, h(q::Real))::Int 
 
         @test issym(a) && symtype(a) == Number
-        @test a.name === :a
+        @test a.impl.name === :a
 
         @test issym(b) && symtype(b) == Float64
         @test nameof(b) === :b
 
         @test issym(f)
-        @test f.name === :f
+        @test f.impl.name === :f
         @test symtype(f) == FnType{Tuple{Real}, Number, Nothing}
 
         @test issym(g)
-        @test g.name === :g
+        @test g.impl.name === :g
         @test symtype(g) == FnType{Tuple{Number, FnType{Tuple{Real}, Number, Nothing}}, Int, Nothing}
 
         @test isterm(f(b))
