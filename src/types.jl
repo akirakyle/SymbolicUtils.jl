@@ -84,8 +84,8 @@ function ConstructionBase.setproperties(obj::BasicSymbolic{T}, patch::NamedTuple
     nt_new = merge(nt, patch)
     # Call outer constructor because hash consing cannot be applied in inner constructor
     @compactified obj::BasicSymbolic begin
-        Sym => Sym{T}(nt_new.name; nt_new...)
-        _ => Unityper.rt_constructor(obj){T}(;nt_new...)
+        Sym => _Sym(T, nt_new.name; nt_new...)
+        _ => BasicSymbolic{T}(; nt_new...)
     end
 end
 
