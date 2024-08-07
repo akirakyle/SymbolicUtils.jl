@@ -188,7 +188,7 @@ function isexpr(x::BasicSymbolic)
     @match x.impl begin
         Sym(_...) => false
         Const(_...) => false
-        _ => false
+        _ => true
     end
 end
 
