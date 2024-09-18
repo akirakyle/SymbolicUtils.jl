@@ -66,6 +66,10 @@ end
 
 const wvd = WeakValueDict{UInt, BasicSymbolic}()
 
+function get_name(x::BasicSymbolic)
+    x.impl.name
+end
+
 # Same but different error messages
 @noinline error_on_type() = error("Internal error: unreachable reached!")
 @noinline error_sym() = error("Sym doesn't have a operation or arguments!")
@@ -328,7 +332,13 @@ end
 Base.one( s::Symbolic) = one( symtype(s))
 Base.zero(s::Symbolic) = zero(symtype(s))
 
-Base.nameof(s::BasicSymbolic) = issym(s) ? s.impl.name : error("None Sym BasicSymbolic doesn't have a name")
+function Base.nameof(s::BasicSymbolic)
+    if issym(s)
+        get_name(s)
+    else
+        error("None Sym BasicSymbolic doesn't have a name")
+    end
+end
 
 ## This is much faster than hash of an array of Any
 hashvec(xs, z) = foldr(hash, xs, init=z)
@@ -1054,7 +1064,7 @@ showraw(t) = showraw(stdout, t)
 
 function Base.show(io::IO, v::BasicSymbolic)
     @match v.impl begin
-        Sym(_...) => Base.show_unquoted(io, v.impl.name)
+        Sym(_...) => Base.show_unquoted(io, get_name(v))
         Const(_...) => print(io, v.impl.val)
         _ => show_term(io, v)
     end
