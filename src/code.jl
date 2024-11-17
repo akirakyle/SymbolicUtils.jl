@@ -8,7 +8,7 @@ export toexpr, Assignment, (←), Let, Func, DestructuredArgs, LiteralExpr,
 
 import ..SymbolicUtils
 import ..SymbolicUtils.Rewriters
-import SymbolicUtils: @matchable, BasicSymbolic, _Sym, Term, iscall, operation, arguments, issym,
+import SymbolicUtils: @matchable, BasicSymbolicType, Sym, Term, iscall, operation, arguments, issym,
                       isconst, symtype, sorted_arguments, metadata, isterm, term, maketerm, get_val
 import SymbolicIndexingInterface: symbolic_type, NotSymbolic
 
@@ -156,7 +156,7 @@ function function_to_expr(::typeof(SymbolicUtils.ifelse), O, st)
     :($(toexpr(args[1], st)) ? $(toexpr(args[2], st)) : $(toexpr(args[3], st)))
 end
 
-function function_to_expr(x::BasicSymbolic, O, st)
+function function_to_expr(x::BasicSymbolicType, O, st)
     issym(x) ? get(st.rewrites, O, nothing) : nothing
 end
 
@@ -683,7 +683,7 @@ end
 
 ### Common subexprssion evaluation
 
-@inline newsym(::Type{T}) where T = _Sym(T, gensym("cse"))
+@inline newsym(::Type{T}) where T = Sym(T, gensym("cse"))
 
 function _cse!(mem, expr)
     iscall(expr) || return expr
@@ -747,7 +747,7 @@ function cse_block!(assignments, counter, names, name, state, x)
         if haskey(names, x)
             return names[x]
         else
-            sym = _Sym(symtype(x), Symbol(name, counter[]))
+            sym = Sym(symtype(x), Symbol(name, counter[]))
             names[x] = sym
             push!(assignments, sym ← x)
             counter[] += 1
@@ -768,7 +768,7 @@ end
 function cse_block(state, t, name=Symbol("var-", hash(t)))
     assignments = Assignment[]
     counter = Ref{Int}(1)
-    names = Dict{Any, BasicSymbolic}()
+    names = Dict{Any, BasicSymbolicType}()
     Let(assignments, cse_block!(assignments, counter, names, name, state, t))
 end
 

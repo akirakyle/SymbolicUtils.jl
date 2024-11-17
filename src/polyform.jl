@@ -29,7 +29,7 @@ PolyForm(sin((x+y)^2), recurse=true) #=> sin((x^2 + (2x)y + y^2))
 struct PolyForm{T} <: Symbolic{T}
     p::MP.AbstractPolynomialLike
     pvar2sym::Bijection{Any,Any}   # @polyvar x --> @sym x  etc.
-    sym2term::Dict{BasicSymbolic,Any}        # Symbol("sin-$hash(sin(x+y))") --> sin(x+y) => sin(PolyForm(...))
+    sym2term::Dict{BasicSymbolic.Type,Any}        # Symbol("sin-$hash(sin(x+y))") --> sin(x+y) => sin(PolyForm(...))
     metadata
     function (::Type{PolyForm{T}})(p, d1, d2, m=nothing) where {T}
         p isa Number && return p
@@ -63,7 +63,7 @@ end
 function get_sym2term()
     v = SYM2TERM[].value
     if v === nothing
-        d = Dict{BasicSymbolic,Any}()
+        d = Dict{BasicSymbolic.Type,Any}()
         SYM2TERM[] = WeakRef(d)
         return d
     else
@@ -132,7 +132,7 @@ function polyize(x, pvar2sym, sym2term, vtype, pow, Fs, recurse)
             name = Symbol(string(op), "_", hash(y))
 
             @label lookup
-            sym = _Sym(symtype(x), name)
+            sym = Sym(symtype(x), name)
             if haskey(sym2term, sym)
                 if isequal(sym2term[sym][1], x)
                     return local_polyize(sym)

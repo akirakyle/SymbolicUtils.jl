@@ -183,15 +183,15 @@ Base.length(l::LL) = length(l.v)-l.i+1
 @inline car(l::LL) = l.v[l.i]
 @inline cdr(l::LL) = isempty(l) ? empty(l) : LL(l.v, l.i+1)
 
-function Base.length(t::BasicSymbolic)
-    @match t.impl begin
-        Term(_...) => length(arguments(t)) + 1 # PIRACY
+function Base.length(t::BasicSymbolic.Type)
+    @match t begin
+        BasicSymbolic.Term(_) => length(arguments(t)) + 1 # PIRACY
         _ => 1
     end
 end
-Base.isempty(t::BasicSymbolic) = false
-@inline car(t::BasicSymbolic) = operation(t)
-@inline cdr(t::BasicSymbolic) = arguments(t)
+Base.isempty(t::BasicSymbolic.Type) = false
+@inline car(t::BasicSymbolic.Type) = operation(t)
+@inline cdr(t::BasicSymbolic.Type) = arguments(t)
 
 @inline car(v) = iscall(v) ? operation(v) : first(v)
 @inline function cdr(v)

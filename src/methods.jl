@@ -95,8 +95,8 @@ macro number_methods(T, rhs1, rhs2, options=nothing)
     number_methods(T, rhs1, rhs2, options) |> esc
 end
 
-@number_methods(BasicSymbolic{<:Number}, term(f, a), term(f, a, b), skipbasics)
-@number_methods(BasicSymbolic{<:LiteralReal}, term(f, a), term(f, a, b), onlybasics)
+@number_methods(BasicSymbolic.Type{<:Number}, term(f, a), term(f, a, b), skipbasics)
+@number_methods(BasicSymbolic.Type{<:LiteralReal}, term(f, a), term(f, a, b), onlybasics)
 
 for f in vcat(diadic, [+, -, *, \, /, ^])
     @eval promote_symtype(::$(typeof(f)),

@@ -78,7 +78,7 @@ function <ₑ(a::Tuple, b::Tuple)
     return length(a) < length(b)
 end
 
-function <ₑ(a::BasicSymbolic, b::BasicSymbolic)
+function <ₑ(a::BasicSymbolic.Type, b::BasicSymbolic.Type)
     aisconst = isconst(a)
     if aisconst
         a = get_val(a)

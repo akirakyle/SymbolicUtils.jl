@@ -5,7 +5,7 @@ function AbstractTrees.nodevalue(x::Symbolic)
     iscall(x) ? operation(x) : isexpr(x) ? head(x) : x
 end
 
-function AbstractTrees.nodevalue(x::BasicSymbolic)
+function AbstractTrees.nodevalue(x::BasicSymbolic.Type)
     str = if issym(x)
         string(exprtype(x), "(", x, ")")
     elseif isconst(x)

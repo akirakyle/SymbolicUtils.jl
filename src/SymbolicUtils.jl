@@ -25,8 +25,8 @@ Base.@deprecate istree iscall
 export istree, operation, arguments, sorted_arguments, iscall
 
 using Base: RefValue
-using Expronicon.ADT: @adt
-using MLStyle: @match
+using Moshi.Data: @data
+using Moshi.Match: @match
 # Sym, Term,
 # Add, Mul and Pow
 include("types.jl")
