@@ -112,7 +112,7 @@ const SIMPLIFIED = 0x01 << 0
 #@inline issimplified(x::BasicSymbolic) = is_of_type(x, SIMPLIFIED)
 
 function ConstructionBase.setproperties_object(
-        obj::BasicSymbolic{T}, patch)::BasicSymbolic{T} where {T}
+        obj::BasicSymbolic{T}, patch::NamedTuple)::BasicSymbolic{T} where {T}
     nt1 = getproperties(obj)
     nt2 = getproperties(obj.impl)
     nt1 = merge(nt1, patch)

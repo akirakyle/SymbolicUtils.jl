@@ -1,4 +1,5 @@
-using SymbolicUtils: Symbolic, BasicSymbolic, _Sym, _Term, _Const, _Add, get_name, get_val
+using SymbolicUtils: Symbolic, BasicSymbolic, BasicSymbolicImpl, Sym, Term, Add, Mul, Div, Pow, Const, _Sym, _Term, _Const, _Add, get_name, get_val
+using SymbolicUtils
 
 @testset "Expronicon generated constructors" begin
     s1 = Sym(:abc)

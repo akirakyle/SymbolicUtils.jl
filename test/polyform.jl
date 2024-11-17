@@ -1,4 +1,4 @@
-using SymbolicUtils: PolyForm, Term, symtype
+using SymbolicUtils: PolyForm, _Term, symtype
 using Test, SymbolicUtils
 
 include("utils.jl")

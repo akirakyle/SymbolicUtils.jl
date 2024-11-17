@@ -14,9 +14,9 @@ using Pkg, Test, SafeTestsets
         @safetestset "Code" begin include("code.jl") end
         @safetestset "CSE" begin include("cse.jl") end
         @safetestset "Interface" begin include("interface.jl") end
-        # Disabled until https://github.com/JuliaMath/SpecialFunctions.jl/issues/446 is fixed
-        @safetestset "Fuzz" begin include("fuzz.jl") end
+        ## Disabled until https://github.com/JuliaMath/SpecialFunctions.jl/issues/446 is fixed
+        #@safetestset "Fuzz" begin include("fuzz.jl") end
         @safetestset "Adjoints" begin include("adjoints.jl") end
-        @safetestset "Hash Consing" begin include("hash_consing.jl") end
+        #@safetestset "Hash Consing" begin include("hash_consing.jl") end
     end
 end

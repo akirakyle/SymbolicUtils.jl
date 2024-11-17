@@ -1,4 +1,5 @@
 using SymbolicUtils
+using SymbolicUtils: Symbolic, _Const
 
 include("utils.jl")
 

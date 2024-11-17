@@ -1,6 +1,6 @@
 using Random: shuffle, seed!
 using SymbolicUtils
-using SymbolicUtils: getdepth, Rewriters, Term
+using SymbolicUtils: getdepth, Rewriters, _Term
 
 include("utils.jl")
 

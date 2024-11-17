@@ -1,4 +1,5 @@
 using SymbolicUtils: Symbolic, FnType, symtype, operation, arguments, issym, isterm, BasicSymbolic, term, isequal_with_metadata, get_name, get_coeff, get_dict, get_num, get_den
+using SymbolicUtils: _Sym, _Term, _Add
 using SymbolicUtils
 using IfElse: ifelse
 using Setfield
